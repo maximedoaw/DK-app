@@ -29,7 +29,7 @@ const NavBar = () => {
     };
   
     return (
-      <div className="p-4 lg:flex  bg-gray-900 text-white sticky top-0">
+      <div className="p-4 lg:flex  bg-gray-900 text-white sticky top-0 z-50">
         {/* Logo et Bouton */}
         <div className="flex items-center justify-between">
           <div className="flex items-center">

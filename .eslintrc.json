@@ -1,5 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "no-console": "off",
-  "react-hooks/exhaustive-deps": "off"
+  "rules": {
+    "no-console": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
 }
