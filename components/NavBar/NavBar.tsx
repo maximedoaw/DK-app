@@ -15,6 +15,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import SignOut from '../AuthModal/SignOut';
+import Link from 'next/link';
 
 const NavBar = () => {
 
@@ -57,14 +58,15 @@ const NavBar = () => {
         {/* Menu Desktop */}
         <div className="hidden lg:flex gap-4 ml-auto items-center">
           {NavLinks.map((item, index) => (
-            <div
+            <Link
               key={index}
-              className={`hover:text-blue-400 cursor-pointer font-medium ${
-                pathname === item.href ? "text-blue-500 underline" : ""
+              className={`hover:text-blue-400 cursor-pointer font-medium select-none ${
+                pathname === item.href ? "text-blue-500 underline select-none" : ""
               }`}
+              href={item.href}
             >
               {item.link}
-            </div>
+            </Link>
           ))}
             {
               user ? (
@@ -90,14 +92,15 @@ const NavBar = () => {
             className="flex flex-col gap-4 mt-4 bg-gray-800 p-4 rounded-md lg:hidden transition-all duration-300"
           >
             {NavLinks.map((item, index) => (
-              <div
+                <Link
                 key={index}
-                className={`hover:text-blue-400 cursor-pointer font-medium ${
-                    pathname === item.href ? "text-blue-500 underline" : ""
-                  }`}
+                className={`hover:text-blue-400 cursor-pointer font-medium select-none ${
+                  pathname === item.href ? "text-blue-500 underline" : ""
+                }`}
+                href={item.href}
               >
                 {item.link}
-              </div>
+              </Link>
             ))}
             {
               user ? (

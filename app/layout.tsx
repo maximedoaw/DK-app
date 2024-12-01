@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/NavBar/Footer";
+import AuthModal from "@/components/AuthModal/AuthModal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,6 +31,7 @@ export default function RootLayout({
     <body className="bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 w-screen h-screen flex flex-col">
       <NavBar />
       <main className="flex-1">{children}</main>
+      <AuthModal />
       <Footer />
     </body>
 </html>

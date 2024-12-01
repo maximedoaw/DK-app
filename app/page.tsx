@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import 'animate.css';
-import AuthModal from "@/components/AuthModal/AuthModal";
 
 
 export default function Home() {
@@ -26,7 +25,7 @@ export default function Home() {
    w-1/2 mx-auto leading-relaxed 
     animate__animated animate__fadeInUp animate__delay-1s">Essayer DK</Button>
 </div>
-<AuthModal />
+
 </div>
 
 
