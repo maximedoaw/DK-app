@@ -1,6 +1,6 @@
 "use client"
 
-import { useState , useEffect} from "react"
+import React, { useState , useEffect} from "react"
 
 
 import { Button } from "@/components/ui/button"
@@ -20,12 +20,16 @@ type Team = {
   description: string,
 }
 
+interface PageProps {
+  params: {
+    uid: string;
+  };
+}
 
+function Page({ params }: PageProps) {
+  // Unwrap du param `uid` en utilisant `React.use()`
+  const uid = React.use(params).uid;
 
-
-function Page({ params }: { params: { uid: string } }) {
-
-  const { uid } = params;
   const [teams, setTeams] = useState<Team[]>([]);
   const { onOpen } = useModalTeam();
 
