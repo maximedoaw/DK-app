@@ -14,8 +14,8 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import SignOut from '../AuthModal/SignOut';
 import Link from 'next/link';
+import SignOut from '../Modal/AuthModal/SignOut';
 
 const NavBar = () => {
 
@@ -63,7 +63,7 @@ const NavBar = () => {
               className={`hover:text-blue-400 cursor-pointer font-medium select-none ${
                 pathname === item.href ? "text-blue-500 underline select-none" : ""
               }`}
-              href={item.href}
+              href={item.href === "/admin" ? `${item.href}/${user?.uid}`: item.href}
             >
               {item.link}
             </Link>

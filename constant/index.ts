@@ -1,3 +1,6 @@
+import { auth } from "@/firebase/clientApp";
+
+
 export const NavLinks = [
   {
     link: "Accueil",
@@ -16,7 +19,7 @@ export const NavLinks = [
     href: "/contact",
   },
   {
-    link: "Blog",
-    href: "/blog",
+    link: "Admin",
+    href: "/admin",
   },
 ];
