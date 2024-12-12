@@ -63,7 +63,7 @@ const NavBar = () => {
               className={`hover:text-blue-400 cursor-pointer font-medium select-none ${
                 pathname === item.href ? "text-blue-500 underline select-none" : ""
               }`}
-              href={item.href === "/admin" ? `${item.href}/${user?.uid}`: item.href}
+              href={"/admin"}
             >
               {item.link}
             </Link>

@@ -11,7 +11,8 @@ import TeamModal from "@/components/Modal/AuthModal/TeamModal"
 import { useModalTeam } from "@/hooks/useModalTeam"
 import { FiPlus } from "react-icons/fi";
 import { collection, getDocs, onSnapshot } from "firebase/firestore"
-import { db } from "@/firebase/clientApp"
+import { auth, db } from "@/firebase/clientApp"
+import { useAuthState } from "react-firebase-hooks/auth"
 
 type Team = {
   id: string,
@@ -20,21 +21,16 @@ type Team = {
   description: string,
 }
 
-interface PageProps {
-  params: {
-    uid: string;
-  };
-}
 
-function Page({ params }: PageProps) {
+
+function Page() {
   // Unwrap du param `uid` en utilisant `React.use()`
-  const uid = React.use(params).uid;
-
+  const [user] = useAuthState(auth);
   const [teams, setTeams] = useState<Team[]>([]);
   const { onOpen } = useModalTeam();
 
   useEffect(() => {
-    const teamRef = collection(db, `Teams/users/${uid}`);
+    const teamRef = collection(db, `Teams/users/${user?.uid}`);
 
     // Écoute en temps réel
     const unsubscribe = onSnapshot(teamRef, (snapshot) => {
@@ -47,7 +43,7 @@ function Page({ params }: PageProps) {
 
     // Nettoyer l'abonnement pour éviter les fuites de mémoire
     return () => unsubscribe();
-  }, [uid]);
+  }, [user?.uid]);
 
   return (
     <main className="w-full overflow-x-auto p-4">

@@ -11,7 +11,7 @@ const page = () => {
           avatarUrls={['/images/Messi.png','/images/Messi.png','/images/Messi.png']}
           imgUrl='/images/stade.jpg'
         />
-                <Card 
+        <Card 
           imageSrc='/images/Messi.png'
           title='Barcelone'
           description='Club espagnol'
