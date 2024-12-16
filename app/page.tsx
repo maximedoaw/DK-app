@@ -34,7 +34,7 @@ export default function Home() {
     <div className=" flex flex-col items-center font-extrabold text-white text-[20px] max-w-2xl mx-auto mt-20 p-4">
       <p className="text-center text-xl md:text-2xl lg:text-3xl leading-relaxed 
         animate__animated animate__fadeInUp animate__delay-1s">
-        Bienvenue sur <span className="text-blue-400">DK.com</span>, soyez une star du <span className="text-blue-600">Football</span>
+        Bienvenue sur <span className="text-blue-400">DK-Advice-and-Management.com</span>, soyez une star du <span className="text-blue-600">Football</span>
       </p>
       <Button variant="secondary" className="mt-4 bg-blue-400 text-white
         w-1/2 mx-auto leading-relaxed 
