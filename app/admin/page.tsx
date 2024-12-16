@@ -24,7 +24,7 @@ type Team = {
 
 
 function Page() {
-  // Unwrap du param `uid` en utilisant `React.use()`
+
   const [user] = useAuthState(auth);
   const [teams, setTeams] = useState<Team[]>([]);
   const { onOpen } = useModalTeam();

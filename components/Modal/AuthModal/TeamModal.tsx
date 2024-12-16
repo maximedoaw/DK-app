@@ -104,6 +104,9 @@ function TeamModal() {
                 name: teamName,
                 description: teamDescription,
                 image: downloadURL, // URL de l'image
+                numMembers: 0,
+                likes: 0,
+                dislikes : 0
               });
 
               setTeamName('');
