@@ -57,13 +57,13 @@ const NavBar = () => {
   
         {/* Menu Desktop */}
         <div className="hidden lg:flex gap-4 ml-auto items-center">
-          {NavLinks.map((item, index) => (
+          {user && NavLinks.map((item, index) => (
             <Link
               key={index}
               className={`hover:text-blue-400 cursor-pointer font-medium select-none ${
                 pathname === item.href ? "text-blue-500 underline select-none" : ""
               }`}
-              href={"/admin"}
+              href={item.href}
             >
               {item.link}
             </Link>
