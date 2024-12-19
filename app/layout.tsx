@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
 <html lang="en">
-    <body className="bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 w-screen h-screen flex flex-col">
+    <body className="bg-gradient-to-br from-gray-800 via-blue-700 to-purple-900 w-screen h-screen flex flex-col">
       <NavBar />
       <main className="flex-1">{children}</main>
       <AuthModal />
