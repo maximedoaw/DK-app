@@ -4,7 +4,7 @@ import { NavLinks } from '@/constant'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from '../ui/button';
 import useAuthModalStore from '@/hooks/useAuthModalStore';
 import { auth } from '@/firebase/clientApp';
@@ -20,7 +20,7 @@ import SignOut from '../Modal/AuthModal/SignOut';
 const NavBar = () => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { changeView, isOpen } = useAuthModalStore();
+    const { open,changeView, isOpen } = useAuthModalStore();
     const [user] = useAuthState(auth);
 
     const pathname = usePathname();
@@ -29,6 +29,12 @@ const NavBar = () => {
       isOpen();
     };
   
+    useEffect(() => {
+      if (user?.uid && open) {
+        isOpen();
+      }
+    }, [user])
+    
     return (
       <div className="p-4 lg:flex  bg-gray-900 text-white sticky top-0 z-50">
         {/* Logo et Bouton */}
