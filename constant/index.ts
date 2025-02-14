@@ -11,10 +11,6 @@ export const NavLinks = [
     href: "/teams",
   },
   {
-    link: "Contact",
-    href: "/contact",
-  },
-  {
     link: "Admin",
     href: "/admin",
   },

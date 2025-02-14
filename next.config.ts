@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+      domains: ['firebasestorage.googleapis.com'], // Ajouter le domaine Firebase
+  },
 }
  
 export default nextConfig

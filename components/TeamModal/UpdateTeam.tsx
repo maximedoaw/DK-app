@@ -12,8 +12,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useModalTeam } from "@/hooks/useModalTeam";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { formatPhoneNumber } from "./CreateTeam";
 
 const UpdateTeam = () => {
+
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<string | null>(null);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -22,22 +24,27 @@ const UpdateTeam = () => {
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [teamName, setTeamName] = useState("");
+  const [phone, setPhone] = useState("");
   const [teamDescription, setTeamDescription] = useState("");
   const [teamImage, setTeamImage] = useState<string | null>(null);
   const { isOpen, onClose, teamId } = useModalTeam();
   const [user] = useAuthState(auth);
 
+
   // Charger les données de l'équipe
   useEffect(() => {
+    
     const fetchTeam = async () => {
       try {
         const teamRef = doc(db, `Teams/users/${user?.uid}`, teamId);
         const teamDoc = await getDoc(teamRef);
+        
         if (teamDoc.exists()) {
-          const { name, description, image } = teamDoc.data();
+          const { name, phone, description, image } = teamDoc.data();
           setTeamName(name);
           setTeamDescription(description || "");
           setTeamImage(image || null);
+          setPhone(formatPhoneNumber(phone));
         }
         console.log(teamDoc.data());
         
@@ -99,10 +106,19 @@ const UpdateTeam = () => {
 
       // Référence de l'équipe dans Firestore
       const teamRef = doc(db, `Teams/users/${user?.uid}`, teamId);
+      const allTeamRef = doc(db, "AllTeams", teamId);
 
       // Mettre à jour les données de l'équipe
+      await updateDoc(allTeamRef, {
+        name: teamName,
+        phone,
+        description: teamDescription,
+        image: downloadURL,
+      })
+
       await updateDoc(teamRef, {
         name: teamName,
+        phone,
         description: teamDescription,
         image: downloadURL, // URL de l'image mise à jour
       });
@@ -200,6 +216,14 @@ const UpdateTeam = () => {
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
           className="mt-4 focus:outline-none border-none"
+        />
+        <Input
+          type="text"
+          placeholder="Tel: ex: +225 00 00 00 00"
+          value={phone}
+          onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
+          className="mt-4 focus:outline-none border-none"
+          required
         />
         <textarea
           value={teamDescription}

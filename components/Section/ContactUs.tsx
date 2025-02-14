@@ -12,7 +12,7 @@ const ContactUs = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const whatsappLink = "https://wa.me/1234567890"; // Remplacez par le numéro WhatsApp du gestionnaire.
+  const whatsappLink = "https://wa.me/677271237"; // Remplacez par le numéro WhatsApp du gestionnaire.
 
   const handleChange = (e :  React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({

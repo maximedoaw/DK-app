@@ -5,8 +5,10 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
+import Link from "next/link";
 
 type CardProps = { 
+    id: string;
     imageSrc: string; 
     title: string;
     description: string; 
@@ -14,10 +16,11 @@ type CardProps = {
     imgUrl?: string
 }
 
-const Card : React.FC<CardProps> = ({ imageSrc, title, description, avatarUrls, imgUrl }) => {
+const Card : React.FC<CardProps> = ({ id, imageSrc, title, description, avatarUrls, imgUrl }) => {
   return (
     <div className="w-full lg:w-[300px] sm:w-[700px] bg-gray-900 cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
       {/* Image Section */}
+      <Link href={`/about/${id}`}>
       <div className="relative h-48">
         <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" className="rounded-t-lg" />
       </div>
@@ -54,6 +57,7 @@ const Card : React.FC<CardProps> = ({ imageSrc, title, description, avatarUrls, 
           </div>
         </div>
       </div>
+      </Link>
     </div>
    )
  }

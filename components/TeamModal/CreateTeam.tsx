@@ -12,6 +12,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useModalTeam } from "@/hooks/useModalTeam";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { replaceHyphensAndSpaces } from "@/utils";
+import { PhoneInput } from 'react-international-phone';
+
+// Fonction utilitaire pour formater le numéro de téléphone
+export const formatPhoneNumber = (phoneNumber: string) => {
+  // Vérifie si le numéro commence déjà par un "+"
+  if (phoneNumber.startsWith('+')) {
+    return phoneNumber;
+  }
+
+  // Ajoute le "+" au début du numéro
+  return `+${phoneNumber}`;
+};
+
 
 const CreateTeam = () => {
   
@@ -23,6 +37,7 @@ const CreateTeam = () => {
     const [croppedImage, setCroppedImage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [teamName, setTeamName] = useState('');
+    const [phone, setPhone] = useState('');
     const [teamDescription, setTeamDescription] = useState('');
     const {isOpen, onOpen, onClose, changeView } = useModalTeam();
     const [user] = useAuthState(auth);
@@ -62,6 +77,8 @@ const CreateTeam = () => {
           console.error("Aucune image recadrée à uploader.");
           return;
         }
+
+        let  name = replaceHyphensAndSpaces(teamName);
   
         // Convertir l'image recadrée (base64) en Blob
         const base64Response = await fetch(croppedImage);
@@ -91,7 +108,7 @@ const CreateTeam = () => {
               const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
   
               // Vérifier si le nom de l'équipe existe déjà
-              const teamRef = doc(db, `Teams/users/${user?.uid}`, teamName);
+              const teamRef = doc(db, `Teams/users/${user?.uid}`, name);
               const teamDoc = await getDoc(teamRef);
   
               if (teamDoc.exists()) {
@@ -104,17 +121,29 @@ const CreateTeam = () => {
                 transaction.set(teamRef, {
                   name: teamName,
                   description: teamDescription,
+                  image: downloadURL,
+                  numMembers: 0,
+                  likes: 0,
+                  dislikes : 0,
+                  phone,
+                });
+
+                transaction.set(doc(db, "AllTeams", name), {
+                  name: teamName,
+                  description: teamDescription,
                   image: downloadURL, // URL de l'image
                   numMembers: 0,
                   likes: 0,
-                  dislikes : 0
+                  dislikes : 0,
+                  phone
                 });
-  
+
                 setTeamName('');
                 setTeamDescription('');
                 setCroppedImage(null); 
                 setFile(null);
                 setLoading(false);
+                setPhone('');
                 toast.success("Équipe créée avec succès!");
   
   
@@ -200,6 +229,14 @@ const CreateTeam = () => {
           onChange={(e) => setTeamName(e.target.value)}
           className="mt-4 focus:outline-none border-none"
         />
+        <Input
+          type="text"
+          placeholder="Tel: ex: +225 00 00 00 00"
+          value={phone}
+          onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
+          className="mt-4 focus:outline-none border-none"
+          required
+        />
         <textarea
         value={teamDescription}
           className="mt-4 mx-auto w-full focus:outline-none border-none"
@@ -216,6 +253,6 @@ const CreateTeam = () => {
       </DialogContent>
     </Dialog>
     )
-}
 
+}
 export default CreateTeam
